@@ -100,6 +100,9 @@ docs/                test log and screenshots
 - The cache is in memory and is lost on restart.
 - Some shows have no poster, rating or cast in TVmaze; the UI shows placeholders.
 - Only English UI; summaries are shown in whatever language TVmaze provides.
+- If changing or removing an entry fails on the watchlist page, no error message is shown.
+- Requests to TVmaze have no timeout, and the cache has no size limit.
+- Tested on macOS with Node.js 26; Node.js 20 and other operating systems have not been tested.
 
 **Assistance**
 - AI: the code, tests and this README were drafted by Claude (Anthropic). Claude Code then installed the dependencies, ran the tests, clicked through the app in headless Chrome, took the screenshots, found and fixed the lockfile problem described above, and ran the publication audit ([`AUDIT.md`](AUDIT.md)).

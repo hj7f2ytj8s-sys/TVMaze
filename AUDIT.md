@@ -38,3 +38,40 @@ No secrets, local paths or tracked `.env`, `data/` or `node_modules/` files were
 ### Checks after the fixes
 
 `npm ci` on a fresh copy of the files succeeded with 0 reported vulnerabilities, and `npm test` reported 28 passed, 0 failed. The ignore rules were checked for `.env`, `.env.local`, `data/` and `node_modules/`.
+
+## Round 2
+
+- **Date:** 2026-11-25
+- **Commit audited:** `961e835`
+
+### What was checked
+
+The same prompt and the round 1 checks, repeated on the updated commit. Additionally: README section headings and relative links, environment variables used against `.env.example`, and the content of the default branch.
+
+### Results
+
+- No secrets, local paths or email addresses in tracked text, and no secret patterns in any commit.
+- `package-lock.json` and `package.json` match on name, license, dependencies and Node version.
+- All seven README topics are present, relative links resolve, and both environment variables are documented.
+
+### Findings and decisions
+
+| # | Type | Finding | Location | Decision and fix |
+|---|---|---|---|---|
+| 13 | Confirmed | The default branch does not yet contain the app, so the README setup steps only work after the merge. | `main` | **To resolve** by merging the pull request for this branch. |
+| 14 | Improvement | Limitations did not mention missing error messages on the watchlist page, request timeouts or a cache size limit. | `README.md`, `public/app.js`, `src/tvmaze.js` | **Documented** in the README; code unchanged. |
+| 15 | Possible concern | Setup claims Node.js 20 or newer, but only Node.js 26 on macOS was used. | `README.md`, `package.json` | **Documented** in the README. |
+
+### Remaining limitations and accepted risks
+
+- No `LICENSE` file (finding 9).
+- Author name and relay email address in Git history (finding 10).
+- No `Host` header check (finding 11).
+- Rights to individual TVmaze images (finding 12).
+- The watchlist page error handling, request timeout and cache limit (finding 14).
+
+### Not verified
+
+- Behaviour on Node.js 20, Windows or Linux.
+- The two other course projects and any shared root README; this audit covers this project only.
+- A pattern search and manual review cannot prove that no sensitive data or security problem exists.
