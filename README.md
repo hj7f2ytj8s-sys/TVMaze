@@ -2,7 +2,11 @@
 
 A small local web app to search TV series by name, open a series to see its episodes (grouped by season) and cast, and keep a personal watchlist.
 
-Screenshots of each view: [`docs/screenshots/`](docs/screenshots/).
+| Search | Series detail |
+|---|---|
+| ![Search results for "breaking bad"](docs/screenshots/1-search.png) | ![Breaking Bad detail page with season tabs and episode list](docs/screenshots/2-detail.png) |
+| **Cast** | **Watchlist** |
+| ![Cast grid](docs/screenshots/3-cast.png) | ![Watchlist with status filters](docs/screenshots/4-watchlist.png) |
 
 ## Purpose
 
@@ -48,8 +52,8 @@ Routes live in the URL hash, so searches and series pages can be bookmarked and 
 Requirements: Node.js 20 or newer. No paid services and no API keys are needed.
 
 ```bash
-git clone <repo-url>
-cd tvmaze-explorer
+git clone https://github.com/hj7f2ytj8s-sys/TVMaze.git
+cd TVMaze
 npm install
 cp .env.example .env      # optional, defaults work
 npm start                 # → http://localhost:3000
@@ -92,5 +96,6 @@ docs/                test log and screenshots
 - Only English UI; summaries are shown in whatever language TVmaze provides.
 
 **Assistance**
-- The code, tests and this README were drafted with the help of Claude (Anthropic) and then reviewed, run and adjusted by me.
-- Data: [TVmaze](https://www.tvmaze.com/) under CC BY-SA.
+- AI: the code, tests and this README were drafted by Claude (Anthropic). Claude Code then installed the dependencies, ran the tests, clicked through the app in headless Chrome and took the screenshots.
+- External code: [Express](https://expressjs.com/) and [dotenv](https://github.com/motdotla/dotenv).
+- Data and images: [TVmaze](https://www.tvmaze.com/) under CC BY-SA.
