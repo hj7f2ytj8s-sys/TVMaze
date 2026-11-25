@@ -1,15 +1,40 @@
 # Publication audit
 
-Audit run with the course audit prompt, two rounds. Fill in after running the prompt.
+Two rounds with the course audit prompt, run by Claude Code (Claude Sonnet 5.5) from the project root. The audit passes were read-only; fixes were made afterwards. The same assistant helped build the project, so this is not an independent review.
 
 ## Round 1
 
-- Date:
-- Findings:
-- Fixes made:
+- **Date:** 2026-11-25
+- **Commit audited:** `8f690cd`
 
-## Round 2
+### What was checked
 
-- Date:
-- Findings:
-- Remaining issues / accepted risks:
+- Git status, tracked and ignored files, and every file path in the history of all branches.
+- Pattern search of all commits for API keys, tokens, passwords and private keys. The pattern was tested against fake samples.
+- Tracked text for email addresses and local user paths; commit author metadata; PNG text and EXIF chunks.
+- `.gitignore`, `.env.example`, `package.json` against `package-lock.json`, imported packages, lockfile download hosts.
+- Source code, tests and README against the required topics.
+- That the repository page opens without being logged in (HTTP 200).
+
+No secrets, local paths or tracked `.env`, `data/` or `node_modules/` files were found.
+
+### Findings and decisions
+
+| # | Type | Finding | Location | Decision and fix |
+|---|---|---|---|---|
+| 1 | Confirmed | Lockfile listed different versions and license than `package.json`, so `npm ci` failed. First noticed during installation, just before this audit. | `package-lock.json` | **Fixed:** regenerated from `package.json`. |
+| 2 | Confirmed | Learning section described no challenge or how it was approached. | `README.md` | **Fixed:** added the lockfile challenge. |
+| 3 | Confirmed | Audit record was an empty template. | `AUDIT.md` | **Fixed:** this document. |
+| 4 | Improvement | `.env.local` and similar files were not ignored. | `.gitignore` | **Fixed:** added `.env.*`, keeping `.env.example`. |
+| 5 | Improvement | A watchlist file configured outside `data/` would not be ignored. | `.env.example` | **Fixed:** comment now says to keep it inside `data/`. |
+| 6 | Improvement | Placeholder file no longer needed. | `docs/screenshots/.gitkeep` | **Fixed:** removed. |
+| 7 | Improvement | The 28 reported tests include a helper file that contains no test. | `test/fixtures.js` | **Documented** in the README; no code change. |
+| 8 | Improvement | AI assistance note did not mention the audit or the lockfile fix. | `README.md` | **Fixed.** |
+| 9 | Improvement | `package.json` says MIT, but there is no `LICENSE` file. | repository root | **Open:** the choice of license is the author's. |
+| 10 | Possible concern | Commit metadata includes the author's name, and some commits use a private relay email address. | Git history | **Accepted:** a relay address hides the real one; history was not rewritten. |
+| 11 | Possible concern | The server does not check the `Host` header (DNS rebinding). | `src/app.js` | **Accepted:** listens on localhost only and holds only a watchlist. |
+| 12 | Possible concern | Screenshots show posters and cast photos served by TVmaze; rights to individual images may differ from the data license. | `docs/screenshots/` | **Accepted** for coursework, with attribution in the README. |
+
+### Checks after the fixes
+
+`npm ci` on a fresh copy of the files succeeded with 0 reported vulnerabilities, and `npm test` reported 28 passed, 0 failed. The ignore rules were checked for `.env`, `.env.local`, `data/` and `node_modules/`.

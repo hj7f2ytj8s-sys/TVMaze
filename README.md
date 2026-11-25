@@ -65,7 +65,7 @@ Run the tests:
 npm test
 ```
 
-The tests use Node's built-in test runner and fake TVmaze responses (`test/fixtures.js`), so they run offline and never hit the real API. Latest run: [`docs/test-log.txt`](docs/test-log.txt).
+The tests use Node's built-in test runner and fake TVmaze responses (`test/fixtures.js`), so they run offline and never hit the real API. The runner also counts `test/fixtures.js` as a passing entry, so the 28 results are 27 tests plus that file. Latest run: [`docs/test-log.txt`](docs/test-log.txt).
 
 ### Project structure
 
@@ -86,6 +86,12 @@ docs/                test log and screenshots
 - **Safe rendering**: TVmaze summaries contain HTML. They are stripped on the server and the frontend only writes text with `textContent`, so no API data is ever injected as HTML.
 - **Small-scale persistence**: atomic writes and a write queue make a JSON file a reasonable store for a single-user local app.
 
+### Challenge: a clean install failed
+
+- **Problem**: `package-lock.json` listed different dependency versions than `package.json`. `npm install` silently rewrote the lockfile, so the app and tests ran fine, but `npm ci` (which installs exactly what the lockfile says) stopped with an error.
+- **Approach**: the unexpected change to the lockfile after installing was the clue. The failure was reproduced with `npm ci` on a copy of the committed files, the lockfile was regenerated from `package.json`, and `npm ci` and the tests were run again.
+- **Takeaway**: commit `package.json` and `package-lock.json` together, and test the setup from a clean copy, not only in a folder that already works.
+
 ## Limitations and assistance
 
 **Limitations**
@@ -96,6 +102,6 @@ docs/                test log and screenshots
 - Only English UI; summaries are shown in whatever language TVmaze provides.
 
 **Assistance**
-- AI: the code, tests and this README were drafted by Claude (Anthropic). Claude Code then installed the dependencies, ran the tests, clicked through the app in headless Chrome and took the screenshots.
+- AI: the code, tests and this README were drafted by Claude (Anthropic). Claude Code then installed the dependencies, ran the tests, clicked through the app in headless Chrome, took the screenshots, found and fixed the lockfile problem described above, and ran the publication audit ([`AUDIT.md`](AUDIT.md)).
 - External code: [Express](https://expressjs.com/) and [dotenv](https://github.com/motdotla/dotenv).
 - Data and images: [TVmaze](https://www.tvmaze.com/) under CC BY-SA.
