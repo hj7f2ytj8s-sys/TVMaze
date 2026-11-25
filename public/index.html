@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TVmaze Explorer</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="brand">TVmaze<span>Explorer</span></a>
+    <nav>
+      <a href="#/" data-nav="search">Search</a>
+      <a href="#/watchlist" data-nav="watchlist">Watchlist <span id="watchlist-count" class="badge">0</span></a>
+    </nav>
+  </header>
+
+  <main id="app" aria-live="polite"></main>
+
+  <footer class="footer">
+    Data from <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener">TVmaze</a> (CC BY-SA). Watchlist is stored locally.
+  </footer>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
