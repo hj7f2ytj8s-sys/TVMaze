@@ -1,0 +1,40 @@
+
+> tvmaze-explorer@1.0.0 test
+> node --test
+
+✔ GET /api/search returns normalized results (71.960291ms)
+✔ GET /api/search without q returns 400 (2.939041ms)
+✔ GET /api/shows/:id returns seasons and cast (5.0105ms)
+✔ GET /api/shows/:id passes through 404 and 400 (5.688792ms)
+✔ watchlist CRUD round trip (19.315292ms)
+✔ frontend is served from / (3.108125ms)
+✔ test/fixtures.js (61.457584ms)
+✔ parseRoute recognises search, show and watchlist routes (2.229875ms)
+✔ formatYears handles running, ended and single-year shows (0.416375ms)
+✔ formatEpisodeCode pads numbers and labels specials (0.178584ms)
+✔ truncate cuts on a word boundary (0.255666ms)
+✔ stripHtml removes tags and decodes common entities (1.754375ms)
+✔ normalizeSearchResults maps fields and falls back to webChannel (0.292958ms)
+✔ normalizeSearchResults tolerates bad input (0.552209ms)
+✔ groupEpisodesBySeason sorts seasons and episodes, specials last (0.431333ms)
+✔ normalizeShowDetail returns show, seasons and cast (0.3385ms)
+✔ client builds correct URLs and encodes the query (0.938458ms)
+✔ client requests episodes and cast in one embedded call (0.330792ms)
+✔ client returns [] for empty query without calling the API (0.1455ms)
+✔ client caches responses within the TTL (0.294083ms)
+✔ client maps HTTP errors to TvmazeError with a status (0.76275ms)
+✔ client rejects invalid ids without calling the API (0.525958ms)
+✔ client reports network failures as 502 (0.266625ms)
+✔ validateEntry applies defaults and rejects bad input (1.285834ms)
+✔ list is empty when the file does not exist yet (4.808791ms)
+✔ upsert adds, persists to disk and updates status (4.340875ms)
+✔ concurrent upserts are not lost (4.774334ms)
+✔ remove deletes an entry and 404s for unknown ids (2.422208ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.177166
