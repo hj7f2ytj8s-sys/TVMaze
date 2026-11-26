@@ -13,7 +13,7 @@ Two rounds with the course audit prompt, run by Claude Code (Claude Sonnet 5.5) 
 - Pattern search of all commits for API keys, tokens, passwords and private keys. The pattern was tested against fake samples.
 - Tracked text for email addresses and local user paths; commit author metadata; PNG text and EXIF chunks.
 - `.gitignore`, `.env.example`, `package.json` against `package-lock.json`, imported packages, lockfile download hosts.
-- Source code, tests and README against the required topics.
+- Read in full: `server.js`, `src/`, the JavaScript and HTML in `public/`, `README.md` (against the required topics), `test/api.test.js` and `test/fixtures.js`. The other test files and `public/styles.css` were covered by the searches only (see the follow-up check).
 - That the repository page opens without being logged in (HTTP 200).
 
 No secrets, local paths or tracked `.env`, `data/` or `node_modules/` files were found.
@@ -46,7 +46,7 @@ No secrets, local paths or tracked `.env`, `data/` or `node_modules/` files were
 
 ### What was checked
 
-The same prompt and the round 1 checks, repeated on the updated commit. Additionally: README section headings and relative links, environment variables used against `.env.example`, and the content of the default branch.
+The same prompt on the updated commit, repeating the Git status, tracked file, secret search, personal data and dependency checks and re-reading the README. Additionally: README section headings and relative links, environment variables used against `.env.example`, and the content of the default branch. The screenshot metadata, commit email and lockfile host checks were not repeated in this round (see the follow-up check).
 
 ### Results
 
@@ -61,6 +61,10 @@ The same prompt and the round 1 checks, repeated on the updated commit. Addition
 | 13 | Confirmed | The default branch does not yet contain the app, so the README setup steps only work after the merge. | `main` | **To resolve** by merging the pull request for this branch. |
 | 14 | Improvement | Limitations did not mention missing error messages on the watchlist page, request timeouts or a cache size limit. | `README.md`, `public/app.js`, `src/tvmaze.js` | **Documented** in the README; code unchanged. |
 | 15 | Possible concern | Setup claims Node.js 20 or newer, but only Node.js 26 on macOS was used. | `README.md`, `package.json` | **Documented** in the README. |
+
+### Follow-up check (2026-11-26)
+
+On commit `3ac2f48`: the screenshots had no text or EXIF metadata, all lockfile downloads pointed to the npm registry, commit email types were as in finding 10, and no source or test file had changed since round 1. The remaining test files and `public/styles.css` were read. No new findings. This was not a third audit round.
 
 ### Remaining limitations and accepted risks
 
